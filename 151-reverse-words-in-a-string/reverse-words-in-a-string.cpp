@@ -2,30 +2,30 @@ class Solution {
 public:
     string reverseWords(string s) {
         stack<string> st;
+
         string word = "";
 
+        // Traverse and extract words
         for (int i = 0; i < s.size(); i++) {
-            char c = s[i];
-            if (c == ' ') {
-                if (!word.empty()) {
-                    st.push(word);
-                    word = "";
-                }
-            } else {
-                word += c;
+            if (s[i] != ' ') {
+                word += s[i];
+            } else if (!word.empty()) {
+                st.push(word);
+                word = "";
             }
         }
-
         if (!word.empty()) {
             st.push(word);
         }
 
-        string ans;
+        string result = "";
         while (!st.empty()) {
-            ans += st.top();
+            result += st.top();
             st.pop();
-            if (!st.empty()) ans += " ";
+            if (!st.empty())
+                result += " ";
         }
-        return ans;
+
+        return result;
     }
 };
