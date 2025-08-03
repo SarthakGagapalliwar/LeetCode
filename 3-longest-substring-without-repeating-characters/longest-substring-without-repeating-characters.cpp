@@ -1,8 +1,7 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        unordered_set<char>mp;
-
+        unordered_set<int>mp;
         int i=0;
         int j=0;
         int n=s.size();
@@ -17,7 +16,6 @@ public:
                 mp.erase(s[i]);
                 i++;
             }
-
         }
         return maxi;
     }
