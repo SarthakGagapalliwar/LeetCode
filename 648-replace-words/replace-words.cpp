@@ -1,43 +1,35 @@
 class Solution {
 public:
     string replaceWords(vector<string>& dictionary, string sentence) {
-        unordered_set<string> st;
+        unordered_set<string> dist(dictionary.begin(), dictionary.end());
 
-        for (auto& a : dictionary) {
-            st.insert(a);
-        }
+        stringstream ss(sentence);
 
-        string ans = "";
-        string a = "";  
-        int j = 0;
+        string words;
+        string res;
 
-        while (j < sentence.size()) {
-            a += sentence[j];  
+        while(ss >> words){
+            string pre;
 
-            if (st.find(a) != st.end()) {  
-                while (j + 1 < sentence.size() && sentence[j + 1] != ' ') {
-                    j++;
+            bool flag= false;
+
+            for(int i=0; i<words.size(); i++){
+                pre=words.substr(0,i);
+                if(dist.count(pre)){
+                    if(!res.empty()) res+= " ";
+                    res+=pre;
+                    flag=true;
+                    break;
                 }
-                ans += a;
-                // ans += " ";
-                a = "";  
-                j++;
-                continue;  
             }
 
-            if (sentence[j] == ' ') {  
-                ans += a;
-                // ans += " ";
-                a = ""; 
+            if(!flag){
+                if (!res.empty()) res += " ";
+                res += words;
             }
-            j++;
+
         }
 
-        if (!a.empty()) ans += a;
-
-    
-        if (!ans.empty() && ans.back() == ' ') ans.pop_back();
-
-        return ans;
+        return res;
     }
 };
