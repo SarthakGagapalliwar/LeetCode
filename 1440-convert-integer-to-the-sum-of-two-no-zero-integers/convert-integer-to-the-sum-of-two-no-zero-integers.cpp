@@ -4,24 +4,21 @@ public:
         
         while(num>0){
             if(num%10==0){
-                return false;
+                return true;
             }
             num/=10;
         }
-        return true;
+        return false;
     }
 
     vector<int> getNoZeroIntegers(int n) {
-        int a;
-        int b;
+        int a=1;
+        int b=n-1;
 
-        for(int i=1; i<n; i++){
-            a=i;
-            b=n-i;
-            if(chcekZero(a) &&  chcekZero(b)){
-                return {a,b};
-            }
+        while(chcekZero(a) ||  chcekZero(b)){
+           a++;
+           b--;
         }
-        return {};
+        return {a,b};
     }
 };
