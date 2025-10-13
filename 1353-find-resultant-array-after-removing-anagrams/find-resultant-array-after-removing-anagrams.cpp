@@ -1,17 +1,20 @@
 class Solution {
 public:
     vector<string> removeAnagrams(vector<string>& words) {
-        vector<unordered_map<char, int>> freq(words.size());
+        vector<string>ans;
 
-        for (int i = 0; i < words.size(); i++) {
-            for (char ch : words[i]) freq[i][ch]++;
+        string prev = "";
+
+        for(auto a : words){
+            string sortWord = a;
+            sort(sortWord.begin(),sortWord.end());
+
+            if(prev != sortWord){
+                ans.push_back(a);
+                prev=sortWord;
+            }
         }
 
-        vector<string> ans;
-        ans.push_back(words[0]);
-        for (int i = 1; i < words.size(); i++) {
-            if (freq[i] != freq[i - 1]) ans.push_back(words[i]);
-        }
         return ans;
     }
 };
