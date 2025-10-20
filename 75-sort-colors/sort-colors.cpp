@@ -8,12 +8,11 @@ public:
         while(k<=j){
             if(nums[k]==0){
                 swap(nums[i],nums[k]);
-                    k++;
-                    i++;  
+                k++;
+                i++;
             }else if(nums[k]==1){
                 k++;
-            }
-            else{
+            }else{
                 swap(nums[j],nums[k]);
                 j--;
             }
