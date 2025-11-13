@@ -1,25 +1,25 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        string pali = "";
+        string ans;
 
-        // Keep only alphanumeric and convert to lowercase
-        for (int i = 0; i < s.size(); i++) {
-            if (isalnum(s[i])) {
-                pali += tolower(s[i]);
+        for(int i=0; i<s.size(); i++){
+            char ch=s[i];
+            if(isalnum(ch)){
+                ans+=tolower(ch);
             }
         }
 
-        int i = 0;
-        int j = pali.size() - 1;
-        while (i < j) {
-            if (pali[i] != pali[j]) {
+        int i=0;
+        int j=ans.size()-1;
+
+        while(i<j){
+            if(ans[i] != ans[j]){
                 return false;
             }
             i++;
             j--;
         }
-
         return true;
     }
 };
