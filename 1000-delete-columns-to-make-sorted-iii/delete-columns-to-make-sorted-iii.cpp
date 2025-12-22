@@ -1,27 +1,31 @@
-#include <vector>
-#include <string>
-#include <algorithm>
-using namespace std;
-
 class Solution {
 public:
+    int dp[100][101];
+    int n, m;
+
+    int f(int col, int last, vector<string>& strs) {
+        if (col<0) return 0;
+
+        int& cache=dp[col][last];
+        if (cache!=-1) return cache;
+
+        // skip this column
+        int ans=f(col-1, last, strs);
+
+        // take this column 
+        bool ok=(last==m) || all_of(strs.begin(), strs.end(),
+            [&](const string& s) { return s[col]<=s[last];});
+
+        if (ok)
+            ans=max(ans, 1+f(col-1, col, strs));
+
+        return cache=ans;
+    }
+
     int minDeletionSize(vector<string>& strs) {
-        int n = (int)strs[0].size();
-        int m = (int)strs.size();
-        vector<int> dp(n, 1);
-
-        for (int i = 1; i < n; i++) {
-            for (int j = 0; j < i; j++) {
-                bool ok = true;
-                for (int r = 0; r < m; r++) {
-                    if (strs[r][j] > strs[r][i]) { ok = false; break; }
-                }
-                if (ok) dp[i] = max(dp[i], dp[j] + 1);
-            }
-        }
-
-        int mx = 0;
-        for (int v : dp) mx = max(mx, v);
-        return n - mx;
+        n=strs.size();
+        m=strs[0].size();
+        memset(dp, -1, sizeof(dp));
+        return m-f(m-1, m, strs);
     }
 };
